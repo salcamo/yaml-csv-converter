@@ -12,7 +12,7 @@ def client():
 
 API_URL = "http://localhost:5000"
 
-def test_yaml_to_csv():
+def test_yaml_to_csv(client):
     yaml_data = """
 ---
 - id: 1
@@ -34,14 +34,14 @@ def test_yaml_to_csv():
     """
 
     headers = {'Content-Type': 'text/yaml'}  # Set the correct content type for YAML
-    response = requests.post(f"{API_URL}/yaml-to-csv", data=yaml_data.encode('utf-8'), headers=headers)
+    response = client.post(f"{API_URL}/yaml-to-csv", data=yaml_data.encode('utf-8'), headers=headers)
 
     # Check that the response status code is 200 OK
     assert response.status_code == 200
 
     # Check the response text for the expected CSV headers
     expected_headers = "id,name,amount,Remark"
-    assert expected_headers in response.text
+    assert expected_headers in response.data.decode('utf-8')
 
     # Check for the presence of specific expected rows in the CSV
     expected_rows = [
@@ -54,10 +54,10 @@ def test_yaml_to_csv():
 
     # Check that each expected row is present in the response text
     for row in expected_rows:
-        assert row in response.text
+        assert row in response.data.decode('utf-8')
 
-    # Optionally, you can also check the total number of rows
-    csv_lines = response.text.strip().split("\n")
+    # Optionally, we can also check the total number of rows
+    csv_lines = response.data.decode('utf-8').strip().split("\n")
     assert len(csv_lines) == len(expected_rows) # we included the header row but if not, we should add +1
 
 def test_convert_csv_to_yaml(client):
@@ -78,14 +78,14 @@ def test_convert_csv_to_yaml(client):
     expected_yaml = "- name: Alice\n  age: 30\n  city: New York\n- name: Bob\n  age: 25\n  city: Los Angeles"
     assert response.data.decode('utf-8') == expected_yaml
 
-def test_invalid_yaml_to_csv():
+def test_invalid_yaml_to_csv(client):
     invalid_yaml = "invalid_yaml_data"
     
-    response = requests.post(f"{API_URL}/yaml-to-csv", data=invalid_yaml)
+    response = client.post(f"{API_URL}/yaml-to-csv", data=invalid_yaml)
     assert response.status_code == 400
 
-def test_invalid_csv_to_yaml():
+def test_invalid_csv_to_yaml(client):
     invalid_csv = "invalid,csv,data"
     
-    response = requests.post(f"{API_URL}/csv-to-yaml", data=invalid_csv)
+    response = client.post(f"{API_URL}/csv-to-yaml", data=invalid_csv)
     assert response.status_code == 400
