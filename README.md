@@ -62,8 +62,6 @@ To use the YAML to CSV Converter API, follow these steps:
    pip install -r requirements.txt
    ```
 
-## Usage
-
 ### Running the API Locally
 
 To run the API locally:
@@ -107,7 +105,7 @@ When anyone push changes to the main branch.
 
 ### CI/CD Configuration
 
-The pipeline configuration is defined in the `.github/workflows/ci-cd.yml` file. And you can check the last executions in the "Actions" tab.
+The pipeline configuration is defined in the `.github/workflows/cicd.yml` file. And you can check the last executions in the "Actions" tab.
 
 ### Secrets Configuration
 
