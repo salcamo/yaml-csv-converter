@@ -75,7 +75,7 @@ def test_convert_csv_to_yaml(client):
     assert response.status_code == 200
     
     # Check that the response is in YAML format
-    expected_yaml = "- name: Alice\n  age: 30\n  city: New York\n- name: Bob\n  age: 25\n  city: Los Angeles"
+    expected_yaml = "---\n- name: Alice\n  age: 30\n  city: New York\n- name: Bob\n  age: 25\n  city: Los Angeles"
     assert response.data.decode('utf-8') == expected_yaml
 
 def test_invalid_yaml_to_csv(client):
