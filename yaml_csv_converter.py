@@ -54,7 +54,7 @@ def csv_to_yaml(csv_data):
 
         # Create YAML output
         yaml_output = yaml.dump(rows, default_flow_style=False, sort_keys=False, allow_unicode=True)
-        
+        yaml_output = "---\n"+yaml_output
         # Clean the output: No single quotes for strings
         cleaned_yaml = yaml_output.replace("'", "").strip()
 
