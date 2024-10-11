@@ -82,12 +82,12 @@ docker run -p 5000:5000 yaml-csv-api
 ```
 
 ## API Endpoints
-- **`/yaml-to-csv´** (POST): Convert YAML to CSV.
+- **`/yaml-to-csv`** (POST): Convert YAML to CSV.
     - Upload a YAML file or send raw YAML data in the request body.
     - Example ```bash
     curl -F "file=@input.yaml" http://localhost:5000/yaml-to-csv --output output.csv
     ```
-- **`/csv-to-yaml** (POST): Convert YAML to CSV.
+- **`/csv-to-yaml`** (POST): Convert YAML to CSV.
     - Upload a CSV file or send raw CSV data in the request body.
     - Example ```bash
     curl -F "file=@input.csv" http://localhost:5000/csv-to-yaml --output output.yaml
